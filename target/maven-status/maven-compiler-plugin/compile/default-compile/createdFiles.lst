@@ -1,0 +1,7 @@
+com/jobapp/crud/entity/repository/OrderRepository.class
+com/jobapp/crud/controller/OrderController.class
+com/jobapp/crud/SpringbootCrudK8sExampleApplication.class
+com/jobapp/crud/repository/OrderRepository.class
+com/jobapp/crud/service/OrderService.class
+com/jobapp/crud/entity/service/OrderService.class
+com/jobapp/crud/entity/Order.class
