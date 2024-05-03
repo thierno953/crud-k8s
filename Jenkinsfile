@@ -51,7 +51,6 @@ pipeline {
                 script{  
                     withDockerRegistry(credentialsId: 'dockerhub', toolName: 'docker') {
                        sh "docker build -t thiernos/springboot-app:1.0 . "
-                       sh "docker tag my-cicd thiernos/springboot-app:1.0 "
                        sh "docker push thiernos/springboot-app:1.0 "
                     }
                 }
