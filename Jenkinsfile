@@ -7,12 +7,7 @@ pipeline {
         maven 'Maven3'
     }
     environment {
-        APP_NAME = "springboot-app"
-        RELEASE = "1.1"
-        DOCKER_USER = "thiernos"
-        DOCKER_PASS = 'dockerhub'
-        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+        SCANNER_HOME = tool 'sonar-scanner'
     }
     stages {
         stage('clean workspace') {
@@ -46,16 +41,18 @@ pipeline {
                 }
             }
         }
-        stage("Build & Push Docker Image") {
+        stage('TRIVY FS SCAN') {
             steps {
-                script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
-
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image.push("${IMAGE_TAG}")
-                        docker_image.push('latest')
+                sh "trivy fs . > trivyfs.txt"
+            }
+        }
+        stage("Docker Build & Push"){
+            steps{
+                script{  
+                    withDockerRegistry(credentialsId: 'dockerhub', toolName: 'docker') {
+                       sh "docker build -t thiernos/springboot-app:1.0 . "
+                       sh "docker tag my-cicd thiernos/springboot-app:1.0 "
+                       sh "docker push thiernos/springboot-app:1.0 "
                     }
                 }
             }
