@@ -56,5 +56,25 @@ pipeline {
                 }
             }
         }
+        stage("TRIVY Image Scan"){
+            steps{
+                sh "trivy image thiernos/springboot-app:1.0.0 > trivyimage.txt" 
+            }
+        }
+    }
+    post {
+        always {
+          emailext attachLog: true,
+              subject: "'${currentBuild.result}'",
+              body: "Project: ${env.JOB_NAME}<br/>" +
+                  "Build Number: ${env.BUILD_NUMBER}<br/>" +
+                  "URL: ${env.BUILD_URL}<br/>",
+              to: 'thiernobarry554@gmail.com',                              
+              attachmentsPattern: 'trivyfs.txt,trivyimage.txt'
+        }
     }
 }
+
+
+
+
