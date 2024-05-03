@@ -7,8 +7,8 @@ pipeline {
         maven 'Maven3'
     }
     environment {
-        APP_NAME = "java-springboot-app"
-        RELEASE = "1.0.0"
+        APP_NAME = "springboot-app"
+        RELEASE = "1.1"
         DOCKER_USER = "thiernos"
         DOCKER_PASS = 'dockerhub'
         IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
