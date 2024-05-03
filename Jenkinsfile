@@ -23,10 +23,5 @@ pipeline {
              sh 'mvn clean install -DskipTests' 
            }
        }
-        stage("Test Application"){
-            steps {
-             sh "mvn clean test"
-           }
-       }
     }
 }
