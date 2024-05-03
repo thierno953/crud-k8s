@@ -65,7 +65,7 @@ pipeline {
             steps{
                 script{
                     dir('kubernetes') {
-                       withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: 'https://F6610CE17EB7041AE9F55AA6CDA40FAA.gr7.eu-west-3.eks.amazonaws.com') {
+                       withKubeConfig(caCertificate: '', clusterName: 'virtualtechboxcluster', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: 'https://7920F4B3A292843484E13B64C1A38888.sk1.eu-west-3.eks.amazonaws.com') {
                        sh 'kubectl apply -f mysql-configMap.yaml'
                        sh 'kubectl apply -f mysql-secrets.yaml'
                        sh 'kubectl apply -f db-deployment.yaml'
