@@ -35,5 +35,18 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to Kubernets'){
+            steps{
+                script{
+                    dir('kubernetes') {
+                       withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
+                       sh 'kubectl apply -f db-deployment.yaml'
+                       sh 'kubectl apply -f app-deployment.yaml'
+                       sh 'kubectl rollout restart deployment.apps/springboot-crud-deployment'
+                       }   
+                    }
+                }
+            }
+        }
     }
 }
