@@ -20,15 +20,10 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/thierno953/crud-k8s.git'
             }
         }
-        stage("Build Application"){
+        stage("Build Application (with tests skipped)"){
             steps {
-             sh 'mvn clean package' 
-           }
+                sh 'mvn clean install -DskipTests' 
+            }
         }
-        stage("Build Application"){
-            steps {
-             sh 'mvn clean install -DskipTests' 
-           }
-       }
     }
 }
