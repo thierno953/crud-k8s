@@ -39,8 +39,8 @@ pipeline {
             steps{
                 script{
                     dir('kubernetes') {
-                       withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: '') {
-                       sh 'kubectl apply -f db.yaml'
+                       withKubeConfig(caCertificate: '', clusterName: 'EKS-1', contextName: '', credentialsId: 'kubernetes', namespace: '', restrictKubeConfigAccess: false, serverUrl: 'https://694F72DFCE5A9600D40383A19A8FB008.gr7.eu-west-3.eks.amazonaws.com') {
+                       sh 'kubectl create -f db.yaml'
                        sh 'kubectl apply -f app.yaml'
                        sh 'kubectl rollout restart deployment.apps/springboot-crud-deployment'
                        }   
