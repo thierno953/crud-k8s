@@ -25,5 +25,15 @@ pipeline {
                 sh 'mvn clean install -DskipTests' 
             }
         }
+        stage("Docker Build & Push"){
+            steps{
+                script{  
+                    withDockerRegistry(credentialsId: 'dockerhub', toolName: 'docker') {
+                       sh "docker build -t thiernos/springboot-app:1.0.0 ."
+                       sh "docker push thiernos/springboot-app:1.0.0"
+                    }
+                }
+            }
+        }
     }
 }
